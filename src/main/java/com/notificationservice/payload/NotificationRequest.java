@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotifcationRequest {
+public class NotificationRequest {
 
     private String from;
     private String to;
