@@ -11,7 +11,7 @@ public class SinkConfig {
 
     @Bean
     public Sinks.Many<Notification> sink() {
-        return Sinks.many().replay().all();
+        return Sinks.many().multicast().onBackpressureBuffer();
     }
 
     @Bean
