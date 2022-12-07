@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NotificationRequest {
 
-    private String from;
-    private String to;
+    private String senderUsername;
+    private String recipientId;
     private String message;
+    private String redirectUrl;
 }

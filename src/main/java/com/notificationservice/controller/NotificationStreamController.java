@@ -20,7 +20,7 @@ public class NotificationStreamController {
     public Flux<Notification> getNotificationUpdates(@PathVariable String userId) {
         log.info("Subscribing user with id {}", userId);
         return flux
-                .filter(notification -> notification.getTo().equals(userId))
+                .filter(notification -> notification.to().equals(userId))
                 .doOnNext(notification -> log.info("Notification: {}", notification));
     }
 }
