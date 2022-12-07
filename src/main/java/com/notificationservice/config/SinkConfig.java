@@ -11,7 +11,7 @@ public class SinkConfig {
 
     @Bean
     public Sinks.Many<Notification> sink() {
-        return Sinks.many().replay().limit(1);
+        return Sinks.many().replay().limit(3);
     }
 
     @Bean
