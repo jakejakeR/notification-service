@@ -11,6 +11,7 @@ import org.springframework.data.annotation.Id;
 public class Notification {
 
     @Id
+    private String id;
     private String from;
     private String to;
     private String message;
