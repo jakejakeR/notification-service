@@ -1,6 +1,6 @@
 package com.notificationservice.controller;
 
-import com.notificationservice.model.Notification;
+import com.notificationservice.entity.Notification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

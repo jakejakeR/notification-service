@@ -1,6 +1,6 @@
 package com.notificationservice.config;
 
-import com.notificationservice.model.Notification;
+import com.notificationservice.entity.Notification;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Flux;

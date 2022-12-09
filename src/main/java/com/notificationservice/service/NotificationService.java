@@ -1,6 +1,6 @@
 package com.notificationservice.service;
 
-import com.notificationservice.model.Notification;
+import com.notificationservice.entity.Notification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

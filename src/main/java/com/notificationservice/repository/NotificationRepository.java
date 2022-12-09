@@ -1,6 +1,6 @@
 package com.notificationservice.repository;
 
-import com.notificationservice.model.Notification;
+import com.notificationservice.entity.Notification;
 
 import java.util.HashMap;
 import java.util.List;
