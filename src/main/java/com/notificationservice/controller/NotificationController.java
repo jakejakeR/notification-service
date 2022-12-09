@@ -29,7 +29,7 @@ public class NotificationController {
         return service.getAllNotificationsByRecipientId(id);
     }
 
-    @PutMapping("{id")
+    @PutMapping("{id}")
     public Mono<ResponseEntity<NotificationDto>> markNotificationAsRead(@PathVariable String id) {
         return service.markNotificationAsRead(id)
                 .map(ResponseEntity::ok)
