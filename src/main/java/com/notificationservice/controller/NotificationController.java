@@ -24,7 +24,7 @@ public class NotificationController {
     }
 
     @GetMapping("all")
-    public Flux<NotificationDto> getAllNotifications() {
-        return service.getAllNotifications();
+    public Flux<NotificationDto> getAllNotificationsByRecipientId(@RequestParam("userId") String id) {
+        return service.getAllNotificationsByRecipientId(id);
     }
 }

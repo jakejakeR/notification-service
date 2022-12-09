@@ -24,7 +24,8 @@ public class NotificationService {
                 .doOnNext(sink::tryEmitNext);
     }
 
-    public Flux<NotificationDto> getAllNotifications() {
-        return Flux.just();
+    public Flux<NotificationDto> getAllNotificationsByRecipientId(String id) {
+        return repository.findAllByRecipientId(id)
+                .map(EntityDtoUtil::toDto);
     }
 }
