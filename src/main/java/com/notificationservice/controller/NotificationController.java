@@ -1,6 +1,6 @@
 package com.notificationservice.controller;
 
-import com.notificationservice.entity.Notification;
+import com.notificationservice.dto.NotificationDto;
 import com.notificationservice.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +17,8 @@ public class NotificationController {
     private final NotificationService service;
 
     @PostMapping
-    public Mono<Notification> receiveNotification(@RequestBody Mono<Notification> notificationMono) {
-        log.info("Received notification: {}", notificationMono.toString());
-        return service.receiveNotification(notificationMono);
+    public Mono<NotificationDto> receiveNotification(@RequestBody Mono<NotificationDto> notificationDtoMono) {
+        log.info("Received notification: {}", notificationDtoMono.toString());
+        return service.receiveNotification(notificationDtoMono);
     }
 }

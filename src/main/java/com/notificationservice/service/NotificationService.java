@@ -1,6 +1,8 @@
 package com.notificationservice.service;
 
-import com.notificationservice.entity.Notification;
+import com.notificationservice.dto.NotificationDto;
+import com.notificationservice.repository.NotificationRepository;
+import com.notificationservice.util.EntityDtoUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -10,10 +12,14 @@ import reactor.core.publisher.Sinks;
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private final Sinks.Many<Notification> sink;
+    private final Sinks.Many<NotificationDto> sink;
+    private final NotificationRepository repository;
 
-    public Mono<Notification> receiveNotification(Mono<Notification> notificationMono) {
+    public Mono<NotificationDto> receiveNotification(Mono<NotificationDto> notificationMono) {
         return notificationMono
+                .map(EntityDtoUtil::toEntity)
+                .flatMap(repository::insert)
+                .map(EntityDtoUtil::toDto)
                 .doOnNext(sink::tryEmitNext);
     }
 }

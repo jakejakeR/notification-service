@@ -1,6 +1,6 @@
 package com.notificationservice.config;
 
-import com.notificationservice.entity.Notification;
+import com.notificationservice.dto.NotificationDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Flux;
@@ -10,12 +10,12 @@ import reactor.core.publisher.Sinks;
 public class SinkConfig {
 
     @Bean
-    public Sinks.Many<Notification> sink() {
+    public Sinks.Many<NotificationDto> sink() {
         return Sinks.many().multicast().onBackpressureBuffer();
     }
 
     @Bean
-    Flux<Notification> notificationBroadcast(Sinks.Many<Notification> sink) {
+    Flux<NotificationDto> notificationBroadcast(Sinks.Many<NotificationDto> sink) {
         return sink.asFlux();
     }
 }

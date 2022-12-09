@@ -16,7 +16,7 @@ public class EntityDtoUtil {
         return dto;
     }
 
-    public static Notification toEntity(Notification dto) {
+    public static Notification toEntity(NotificationDto dto) {
         Notification notification = new Notification();
         BeanUtils.copyProperties(dto, notification);
         return notification;

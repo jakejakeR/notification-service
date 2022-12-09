@@ -1,6 +1,6 @@
 package com.notificationservice.controller;
 
-import com.notificationservice.entity.Notification;
+import com.notificationservice.dto.NotificationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -14,13 +14,13 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/notification-service/stream")
 public class NotificationStreamController {
 
-    private final Flux<Notification> flux;
+    private final Flux<NotificationDto> flux;
 
     @GetMapping(value = "{userId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Notification> getNotificationUpdates(@PathVariable String userId) {
+    public Flux<NotificationDto> getNotificationUpdates(@PathVariable String userId) {
         log.info("Subscribing user with id {}", userId);
         return flux
-                .filter(notification -> notification.to().equals(userId))
-                .doOnNext(notification -> log.info("Notification: {}", notification));
+                .filter(notificationDto -> notificationDto.getTo().equals(userId))
+                .doOnNext(notificationDto -> log.info("Notification: {}", notificationDto));
     }
 }
