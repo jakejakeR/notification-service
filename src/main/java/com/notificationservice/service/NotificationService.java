@@ -5,6 +5,7 @@ import com.notificationservice.repository.NotificationRepository;
 import com.notificationservice.util.EntityDtoUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
@@ -21,5 +22,9 @@ public class NotificationService {
                 .flatMap(repository::insert)
                 .map(EntityDtoUtil::toDto)
                 .doOnNext(sink::tryEmitNext);
+    }
+
+    public Flux<NotificationDto> getAllNotifications() {
+        return Flux.just();
     }
 }
