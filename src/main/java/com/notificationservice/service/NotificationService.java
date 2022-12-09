@@ -28,4 +28,11 @@ public class NotificationService {
         return repository.findAllByRecipientId(id)
                 .map(EntityDtoUtil::toDto);
     }
+
+    public Mono<NotificationDto> markNotificationAsRead(String id) {
+        return repository.findById(id)
+                .doOnNext(notification -> notification.setIsRead(true))
+                .flatMap(repository::save)
+                .map(EntityDtoUtil::toDto);
+    }
 }
