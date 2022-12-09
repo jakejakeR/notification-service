@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NotificationDto {
 
-    private String from;
-    private String to;
+    private String id;
+    private String senderName;
+    private String recipientId;
     private String message;
     private String redirectTo;
     private Boolean isRead;
