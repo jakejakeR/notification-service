@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("https://127.0.0.1:3000")
 @RequestMapping("/notification-service")
 public class NotificationController {
 
