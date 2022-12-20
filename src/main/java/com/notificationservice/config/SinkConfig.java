@@ -1,11 +1,13 @@
 package com.notificationservice.config;
 
 import com.notificationservice.dto.NotificationDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+@Slf4j
 @Configuration
 public class SinkConfig {
 
@@ -16,6 +18,7 @@ public class SinkConfig {
 
     @Bean
     Flux<NotificationDto> notificationBroadcast(Sinks.Many<NotificationDto> sink) {
-        return sink.asFlux();
+        return sink.asFlux()
+                .doOnCancel(() -> log.info("CANCEL"));
     }
 }
