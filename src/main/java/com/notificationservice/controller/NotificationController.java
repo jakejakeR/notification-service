@@ -30,6 +30,13 @@ public class NotificationController {
         return service.getAllNotificationsByRecipientId(id);
     }
 
+    @GetMapping("notifications")
+    public Flux<NotificationDto> getPageOfNotificationsByRecipientId(@RequestParam("userId") String id,
+                                                                     @RequestParam("page") int page
+    ) {
+        return service.getPageOfNotificationsByRecipientId(id, page);
+    }
+
     @PutMapping("{id}")
     public Mono<ResponseEntity<NotificationDto>> markNotificationAsRead(@PathVariable String id) {
         return service.markNotificationAsRead(id)
