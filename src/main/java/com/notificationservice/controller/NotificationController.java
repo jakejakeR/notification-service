@@ -34,7 +34,10 @@ public class NotificationController {
     public Flux<NotificationDto> getPageOfNotificationsByRecipientId(@RequestParam("userId") String id,
                                                                      @RequestParam("page") int page
     ) {
-        return service.getPageOfNotificationsByRecipientId(id, page);
+        log.info("Fetching another page of number: {}", page);
+        return service
+                .getPageOfNotificationsByRecipientId(id, page)
+                .doOnNext(next -> log.info("Fetched page: {}", next));
     }
 
     @PutMapping("{id}")
