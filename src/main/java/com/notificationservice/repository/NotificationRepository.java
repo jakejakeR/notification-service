@@ -10,5 +10,5 @@ import reactor.core.publisher.Flux;
 public interface NotificationRepository extends ReactiveMongoRepository<Notification, String> {
     Flux<Notification> findAllByRecipientId(String recipientId);
 
-    Flux<Notification> findByRecipientId(String recipientId, Pageable pageable);
+    Flux<Notification> findByRecipientIdOrderByReceiptDateDesc(String recipientId, Pageable pageable);
 }

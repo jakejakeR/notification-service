@@ -10,6 +10,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
@@ -19,6 +21,7 @@ public class NotificationService {
 
     public Mono<NotificationDto> receiveNotification(Mono<NotificationDto> notificationMono) {
         return notificationMono
+                .doOnNext(dto -> dto.setReceiptDate(LocalDateTime.now()))
                 .map(EntityDtoUtil::toEntity)
                 .flatMap(repository::insert)
                 .map(EntityDtoUtil::toDto)
@@ -39,7 +42,7 @@ public class NotificationService {
 
     public Flux<NotificationDto> getPageOfNotificationsByRecipientId(String id, int page) {
         return repository
-                .findByRecipientId(id, PageRequest.of(page, 5))
+                .findByRecipientIdOrderByReceiptDateDesc(id, PageRequest.of(page, 5))
                 .map(EntityDtoUtil::toDto);
     }
 }
