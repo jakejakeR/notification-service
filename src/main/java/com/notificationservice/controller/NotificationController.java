@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("https://127.0.0.1:3000")
 @RequestMapping("/notification-service")
 public class NotificationController {
 
@@ -26,7 +26,18 @@ public class NotificationController {
 
     @GetMapping("all")
     public Flux<NotificationDto> getAllNotificationsByRecipientId(@RequestParam("userId") String id) {
+        log.info("fetching notifications");
         return service.getAllNotificationsByRecipientId(id);
+    }
+
+    @GetMapping("notifications")
+    public Flux<NotificationDto> getPageOfNotificationsByRecipientId(@RequestParam("userId") String id,
+                                                                     @RequestParam("page") int page
+    ) {
+        log.info("Fetching another page of number: {}", page);
+        return service
+                .getPageOfNotificationsByRecipientId(id, page)
+                .doOnNext(next -> log.info("Fetched page: {}", next));
     }
 
     @PutMapping("{id}")

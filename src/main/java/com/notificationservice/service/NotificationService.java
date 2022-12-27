@@ -4,10 +4,13 @@ import com.notificationservice.dto.NotificationDto;
 import com.notificationservice.repository.NotificationRepository;
 import com.notificationservice.util.EntityDtoUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class NotificationService {
 
     public Mono<NotificationDto> receiveNotification(Mono<NotificationDto> notificationMono) {
         return notificationMono
+                .doOnNext(dto -> dto.setReceiptDate(LocalDateTime.now()))
                 .map(EntityDtoUtil::toEntity)
                 .flatMap(repository::insert)
                 .map(EntityDtoUtil::toDto)
@@ -33,6 +37,12 @@ public class NotificationService {
         return repository.findById(id)
                 .doOnNext(notification -> notification.setIsRead(true))
                 .flatMap(repository::save)
+                .map(EntityDtoUtil::toDto);
+    }
+
+    public Flux<NotificationDto> getPageOfNotificationsByRecipientId(String id, int page) {
+        return repository
+                .findByRecipientIdOrderByReceiptDateDesc(id, PageRequest.of(page, 5))
                 .map(EntityDtoUtil::toDto);
     }
 }
